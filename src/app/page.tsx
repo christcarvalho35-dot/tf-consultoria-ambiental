@@ -123,14 +123,10 @@ export default async function Home() {
         {servicos && servicos.length > 0 && (
           <section className="py-16 px-4">
             <div className="max-w-6xl mx-auto">
-              <div className="flex items-end justify-between mb-10">
-                <div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-[#263238]">Nossos Serviços</h2>
-                  <p className="text-gray-500 mt-1">Atuamos em todas as frentes da consultoria ambiental</p>
-                </div>
-                <Link href="/servicos" className="text-[#4CAF50] font-semibold text-sm hover:underline hidden sm:block">
-                  Ver todos →
-                </Link>
+              <div className="text-center mb-12">
+                <span className="text-[#4CAF50] font-semibold text-sm uppercase tracking-widest">O que oferecemos</span>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#263238] mt-2">Nossos Serviços</h2>
+                <p className="text-gray-500 mt-2 max-w-xl mx-auto">Atuamos em todas as frentes da consultoria ambiental</p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {servicos.map((s) => (
@@ -144,8 +140,8 @@ export default async function Home() {
                   />
                 ))}
               </div>
-              <div className="text-center mt-8 sm:hidden">
-                <Link href="/servicos" className="text-[#4CAF50] font-semibold">Ver todos os serviços →</Link>
+              <div className="text-center mt-10">
+                <Link href="/servicos" className="text-[#4CAF50] font-semibold hover:underline">Ver todos os serviços →</Link>
               </div>
             </div>
           </section>
