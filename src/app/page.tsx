@@ -175,16 +175,16 @@ export default async function Home() {
               <div className="space-y-6">
                 {ferramentas.map((f, idx) => (
                   <div key={f.id} className="group bg-[#1a3a28] border border-white/10 rounded-2xl overflow-hidden hover:border-[#4CAF50]/40 hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)] transition-all duration-300">
-                    <div className={`grid grid-cols-1 md:grid-cols-2`}>
+                    <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] md:h-[320px]">
 
-                      {/* Imagem */}
-                      <div className={`relative h-72 md:h-auto md:min-h-[300px] bg-[#1a3a28] ${idx % 2 === 1 ? "md:order-last" : ""}`}>
+                      {/* Imagem — altura fixa, preenchimento total */}
+                      <div className={`relative h-64 md:h-full ${idx % 2 === 1 ? "md:order-last" : ""}`}>
                         {f.screenshot_url ? (
                           <Image
                             src={f.screenshot_url}
                             alt={`Screenshot ${f.nome}`}
                             fill
-                            className="object-contain"
+                            className="object-cover object-center"
                             sizes="(max-width: 768px) 100vw, 50vw"
                           />
                         ) : (
@@ -198,27 +198,27 @@ export default async function Home() {
                       </div>
 
                       {/* Conteúdo */}
-                      <div className="p-8 flex flex-col justify-center gap-5">
+                      <div className="p-8 flex flex-col justify-center gap-4">
                         <span className="text-[10px] text-[#4CAF50] font-semibold uppercase tracking-widest bg-[#4CAF50]/10 px-3 py-1 rounded-full border border-[#4CAF50]/20 w-fit">
                           {f.badge}
                         </span>
 
                         {f.logo_url ? (
                           <div>
-                            <Image src={f.logo_url} alt={`Logo ${f.nome}`} width={150} height={48} className="object-contain h-10 w-auto mb-1" />
+                            <Image src={f.logo_url} alt={`Logo ${f.nome}`} width={150} height={48} className="object-contain h-9 w-auto" />
                             <p className="text-white/50 text-xs mt-1">{f.nome}</p>
                           </div>
                         ) : (
-                          <h3 className="text-white font-bold text-2xl">{f.nome}</h3>
+                          <h3 className="text-white font-bold text-xl">{f.nome}</h3>
                         )}
 
-                        <p className="text-gray-400 text-sm leading-relaxed">{f.descricao}</p>
+                        <p className="text-gray-400 text-sm leading-relaxed line-clamp-4">{f.descricao}</p>
 
                         <a
                           href={f.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 bg-[#4CAF50] hover:bg-[#2E7D32] text-white font-semibold px-5 py-3 rounded-xl text-sm transition-colors w-fit"
+                          className="inline-flex items-center gap-2 bg-[#4CAF50] hover:bg-[#2E7D32] text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition-colors w-fit mt-1"
                         >
                           Acessar plataforma
                           <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
