@@ -48,17 +48,18 @@ export default async function TecnologiaPage() {
                   className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${i % 2 === 1 ? "lg:grid-flow-dense" : ""}`}
                 >
                   {/* Imagem */}
-                  <div className={`${i % 2 === 1 ? "lg:col-start-2" : ""} relative rounded-2xl overflow-hidden min-h-[400px] bg-[#071510]`}>
+                  <div className={`${i % 2 === 1 ? "lg:col-start-2" : ""} bg-[#071510] rounded-2xl overflow-hidden flex items-center justify-center`}>
                     {f.screenshot_url ? (
                       <Image
                         src={f.screenshot_url}
                         alt={`Screenshot ${f.nome}`}
-                        fill
-                        className="object-contain"
+                        width={0}
+                        height={0}
                         sizes="(max-width: 1024px) 100vw, 50vw"
+                        className="w-full h-auto block"
                       />
                     ) : (
-                      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 opacity-30">
+                      <div className="h-80 flex flex-col items-center justify-center gap-3 opacity-30 w-full">
                         <svg className="w-12 h-12 text-[#4CAF50]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                         </svg>
