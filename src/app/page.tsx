@@ -19,7 +19,7 @@ export default async function Home() {
 
   const [{ data: servicos }, { data: areas }, { data: depoimentos }, { data: clientes }] = await Promise.all([
     supabase.from("servicos").select("id,titulo,slug,categoria,descricao_curta,imagem_url").eq("ativo", true).order("ordem").limit(6),
-    supabase.from("areas_atuacao").select("id,titulo,descricao,imagem_url").eq("ativo", true).order("ordem").limit(6),
+    supabase.from("areas_atuacao").select("id,titulo,descricao,imagem_url").eq("ativo", true).order("ordem"),
     supabase.from("depoimentos").select("id,nome,cargo,empresa,texto,foto_url").eq("ativo", true).order("ordem").limit(4),
     supabase.from("clientes").select("id,nome,logo_url,site_url").eq("ativo", true).order("ordem"),
   ]);
@@ -120,21 +120,26 @@ export default async function Home() {
                 <h2 className="text-2xl md:text-3xl font-bold text-[#263238] mt-2">Áreas de Atuação</h2>
                 <p className="text-gray-500 mt-2 max-w-xl mx-auto">Nossa expertise cobre todas as etapas da regularização ambiental</p>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8">
                 {areas.map((area) => (
-                  <div key={area.id} className="flex flex-col items-center text-center group">
-                    <div className="w-24 h-24 rounded-full overflow-hidden mb-3 border-4 border-white shadow-md group-hover:border-[#4CAF50] transition-colors">
+                  <div key={area.id} className="flex flex-col items-center text-center group cursor-default">
+                    <div className="relative w-28 h-28 rounded-full overflow-hidden mb-3 border-4 border-white shadow-md group-hover:border-[#4CAF50] transition-all group-hover:shadow-lg">
                       {area.imagem_url ? (
                         <Image
                           src={area.imagem_url}
                           alt={area.titulo}
-                          width={96}
-                          height={96}
+                          width={112}
+                          height={112}
                           className="object-cover w-full h-full"
                         />
                       ) : (
                         <div className="w-full h-full bg-[#0D2418] flex items-center justify-center">
                           <span className="text-white text-2xl font-bold">{area.titulo.charAt(0)}</span>
+                        </div>
+                      )}
+                      {area.descricao && (
+                        <div className="absolute inset-0 bg-[#0D2418]/85 flex items-center justify-center p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <p className="text-white text-[10px] leading-tight text-center line-clamp-5">{area.descricao}</p>
                         </div>
                       )}
                     </div>
