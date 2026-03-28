@@ -47,7 +47,7 @@ export default function ContatoPage() {
                   <div>
                     <h3 className="font-semibold text-[#263238]">Localização</h3>
                     <p className="text-gray-600">Aparecida de Goiânia – GO</p>
-                    <p className="text-gray-400 text-sm">Atendemos todo o estado de Goiás</p>
+                    <p className="text-gray-400 text-sm">Atendemos em todo o Brasil</p>
                   </div>
                 </div>
               </div>

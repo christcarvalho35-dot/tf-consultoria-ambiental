@@ -18,7 +18,7 @@ export default function PortfolioPage() {
           <div className="max-w-3xl mx-auto">
             <h1 className="text-4xl font-bold mb-4">Portfólio</h1>
             <p className="text-gray-300 text-lg">
-              Projetos realizados pela TF Ambiental em todo o estado de Goiás.
+              Projetos realizados pela TF Ambiental em todo o Brasil.
             </p>
           </div>
         </section>

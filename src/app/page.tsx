@@ -11,7 +11,7 @@ const featuredServices = services.filter(isPublished).slice(0, 6);
 
 const diferenciais = [
   { icon: "🎓", title: "Equipe Especializada", desc: "Profissionais com formação e experiência em meio ambiente, florestal e geotecnologias." },
-  { icon: "📍", title: "Atuação Regional", desc: "Baseados em Aparecida de Goiânia/GO, atendemos todo o estado de Goiás e região." },
+  { icon: "🇧🇷", title: "Atuação Nacional", desc: "Baseados em Aparecida de Goiânia/GO, com projetos realizados em GO, MG, SP, MT, TO, PA, RN e outros estados." },
   { icon: "⚡", title: "Agilidade e Segurança", desc: "Processos conduzidos com rigor técnico e dentro dos prazos acordados." },
   { icon: "🤝", title: "Atendimento Personalizado", desc: "Cada projeto é tratado de forma única, com soluções sob medida para cada cliente." },
 ];
@@ -26,14 +26,14 @@ export default function Home() {
         <section className="bg-[#263238] text-white py-24 px-4">
           <div className="max-w-5xl mx-auto text-center">
             <span className="inline-block bg-[#4CAF50] text-white text-xs font-bold px-3 py-1 rounded-full mb-6 uppercase tracking-widest">
-              Consultoria Ambiental em Goiás
+              Consultoria Ambiental Nacional
             </span>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
               Soluções ambientais completas para o seu projeto
             </h1>
             <p className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mb-10">
               Licenciamento, inventário florestal, georreferenciamento, estudos ambientais e muito mais.
-              Atendemos em Aparecida de Goiânia e em todo o estado de Goiás.
+              Atendemos em todo o Brasil — GO, MG, SP, MT, TO, PA, RN e outros estados.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
@@ -103,12 +103,12 @@ export default function Home() {
               <h2 className="text-3xl font-bold mt-2 mb-4">TF Consultoria Ambiental</h2>
               <p className="text-gray-300 leading-relaxed mb-4">
                 A TF Ambiental é uma empresa de consultoria especializada em soluções ambientais para
-                empreendimentos rurais, urbanos e industriais em Goiás. Com uma equipe multidisciplinar,
+                empreendimentos rurais, urbanos e industriais em todo o Brasil. Com uma equipe multidisciplinar,
                 oferecemos serviços técnicos de alta qualidade, garantindo conformidade legal e
                 sustentabilidade para nossos clientes.
               </p>
               <p className="text-gray-300 leading-relaxed mb-6">
-                Baseados em Aparecida de Goiânia/GO, atuamos em licenciamento ambiental, inventário
+                Baseados em Aparecida de Goiânia/GO, com atuação em todo o território nacional em licenciamento ambiental, inventário
                 florestal, georreferenciamento, estudos ambientais e muito mais.
               </p>
               <Link
@@ -122,7 +122,7 @@ export default function Home() {
               {[
                 { num: "7+", label: "Categorias de serviços" },
                 { num: "100+", label: "Projetos realizados" },
-                { num: "GO", label: "Atuação em Goiás" },
+                { num: "7+", label: "Estados atendidos" },
                 { num: "100%", label: "Conformidade legal" },
               ].map((stat) => (
                 <div key={stat.label} className="bg-[#37474F] rounded-2xl p-6 text-center">

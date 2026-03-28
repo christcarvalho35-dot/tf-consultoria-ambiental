@@ -35,7 +35,7 @@ export default function SobrePage() {
               <p className="text-gray-600 leading-relaxed mb-4">
                 A <strong>TF Consultoria Ambiental</strong> é uma empresa especializada em soluções
                 ambientais para empreendimentos rurais, urbanos e industriais. Atuamos em Aparecida
-                de Goiânia/GO e em todo o estado de Goiás, oferecendo serviços técnicos de alta
+                de Goiânia/GO e com atuação em todo o Brasil, oferecendo serviços técnicos de alta
                 qualidade com foco em conformidade legal e sustentabilidade.
               </p>
               <p className="text-gray-600 leading-relaxed mb-4">
@@ -61,7 +61,7 @@ export default function SobrePage() {
                 <div>
                   <h3 className="font-bold text-[#263238] text-lg mb-2">👁️ Visão</h3>
                   <p className="text-gray-600 text-sm leading-relaxed">
-                    Ser referência em consultoria ambiental em Goiás, reconhecida pela excelência
+                    Ser referência em consultoria ambiental no Brasil, reconhecida pela excelência
                     técnica e pelo compromisso com a sustentabilidade.
                   </p>
                 </div>
@@ -99,13 +99,13 @@ export default function SobrePage() {
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-[#263238] mb-4">Nossa Localização</h2>
             <p className="text-gray-500 mb-6">
-              Estamos em <strong>Aparecida de Goiânia – GO</strong> e atendemos projetos em todo o estado de Goiás.
+              Baseados em <strong>Aparecida de Goiânia – GO</strong>, com projetos realizados em todo o Brasil: GO, MG, SP, MT, TO, PA, RN e outros estados.
             </p>
             <div className="bg-[#263238] text-white rounded-2xl p-8 flex flex-col sm:flex-row items-center justify-center gap-6">
               <div className="text-center">
                 <span className="text-3xl block mb-2">📍</span>
                 <p className="font-semibold">Aparecida de Goiânia – GO</p>
-                <p className="text-gray-400 text-sm">Goiás, Brasil</p>
+                <p className="text-gray-400 text-sm">Atendimento nacional</p>
               </div>
               <div className="text-center">
                 <span className="text-3xl block mb-2">📱</span>

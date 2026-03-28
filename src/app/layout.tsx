@@ -10,13 +10,13 @@ const geistSans = Geist({
 export const metadata: Metadata = {
   title: "TF Ambiental | TF Consultoria Ambiental",
   description:
-    "Licenciamento ambiental, inventário florestal, georreferenciamento e estudos ambientais em Aparecida de Goiânia e região.",
+    "Licenciamento ambiental, inventário florestal, georreferenciamento e estudos ambientais em todo o Brasil.",
   keywords:
-    "licenciamento ambiental, inventário florestal, georreferenciamento, EIA RIMA, CAR, Goiás, consultoria ambiental",
+    "licenciamento ambiental, inventário florestal, georreferenciamento, EIA RIMA, CAR, Goiás, Minas Gerais, São Paulo, Mato Grosso, Tocantins, Pará, Rio Grande do Norte, consultoria ambiental, Brasil",
   openGraph: {
     title: "TF Ambiental | TF Consultoria Ambiental",
     description:
-      "Soluções ambientais completas em Aparecida de Goiânia/GO. Licenciamento, florestal, geotecnologias e mais.",
+      "Soluções ambientais completas com atuação em todo o Brasil. Licenciamento, florestal, geotecnologias e mais.",
     locale: "pt_BR",
     type: "website",
   },
