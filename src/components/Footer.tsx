@@ -68,7 +68,8 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-gray-700 text-center py-4 text-xs text-gray-500">
-        © {new Date().getFullYear()} TF Consultoria Ambiental. Todos os direitos reservados.
+        <p className="mb-1">Desenvolvido por <span className="font-semibold text-gray-400">Axion Group</span></p>
+        <p>Em parceria com © {new Date().getFullYear()} TF Consultoria Ambiental. Todos os direitos reservados.</p>
       </div>
     </footer>
   );
