@@ -81,37 +81,51 @@ export default async function Home() {
 
         {/* Áreas de Atuação */}
         {areas && areas.length > 0 && (
-          <section className="py-16 px-4 bg-gray-50">
+          <section className="py-20 px-4 bg-gray-50">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
-                <span className="text-[#4CAF50] font-semibold text-sm uppercase tracking-widest">O que fazemos</span>
+                <span className="text-[#4CAF50] font-semibold text-sm uppercase tracking-widest">Segmentos atendidos</span>
                 <h2 className="text-2xl md:text-3xl font-bold text-[#263238] mt-2">Áreas de Atuação</h2>
-                <p className="text-gray-500 mt-2 max-w-xl mx-auto">Nossa expertise cobre todas as etapas da regularização ambiental</p>
+                <p className="text-gray-500 mt-2 max-w-2xl mx-auto">
+                  Atuamos nos principais setores que exigem regularização ambiental com responsabilidade técnica e agilidade.
+                </p>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {areas.map((area) => (
-                  <div key={area.id} className="flex flex-col items-center text-center group cursor-default">
-                    <div className="relative w-28 h-28 rounded-full overflow-hidden mb-3 border-4 border-white shadow-md group-hover:border-[#4CAF50] transition-all group-hover:shadow-lg">
-                      {area.imagem_url ? (
-                        <Image
-                          src={area.imagem_url}
-                          alt={area.titulo}
-                          width={112}
-                          height={112}
-                          className="object-cover w-full h-full"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-[#0D2418] flex items-center justify-center">
-                          <span className="text-white text-2xl font-bold">{area.titulo.charAt(0)}</span>
-                        </div>
-                      )}
+                  <div
+                    key={area.id}
+                    className="group relative h-56 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 cursor-default"
+                  >
+                    {/* Background image */}
+                    {area.imagem_url ? (
+                      <Image
+                        src={area.imagem_url}
+                        alt={`Consultoria ambiental para ${area.titulo.toLowerCase()}`}
+                        fill
+                        className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#0D2418] to-[#263238]" />
+                    )}
+
+                    {/* Gradient overlay — always visible, darkens on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/10 group-hover:from-black/80 group-hover:via-black/35 transition-all duration-300" />
+
+                    {/* Text — bottom left */}
+                    <div className="absolute bottom-0 left-0 p-5">
+                      <h3 className="text-white font-bold text-lg leading-tight mb-1 drop-shadow">
+                        {area.titulo}
+                      </h3>
                       {area.descricao && (
-                        <div className="absolute inset-0 bg-[#0D2418]/85 flex items-center justify-center p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <p className="text-white text-[10px] leading-tight text-center line-clamp-5">{area.descricao}</p>
-                        </div>
+                        <p className="text-white/75 text-sm leading-snug max-w-[220px]">
+                          {area.descricao}
+                        </p>
                       )}
                     </div>
-                    <h3 className="font-semibold text-[#263238] text-sm leading-snug">{area.titulo}</h3>
+
+                    {/* Green accent bar on hover */}
+                    <div className="absolute bottom-0 left-0 w-full h-0.5 bg-[#4CAF50] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                   </div>
                 ))}
               </div>
