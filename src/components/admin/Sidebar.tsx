@@ -13,6 +13,7 @@ const nav = [
   { href: "/admin/portfolio", label: "Portfólio", icon: "📁" },
   { href: "/admin/blog", label: "Blog", icon: "✍️" },
   { href: "/admin/clientes", label: "Clientes / Logos", icon: "🏢" },
+  { href: "/admin/ferramentas", label: "Tecnologia", icon: "💻" },
 ];
 
 export default function Sidebar() {
