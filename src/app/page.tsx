@@ -184,7 +184,7 @@ export default async function Home() {
                             src={f.screenshot_url}
                             alt={`Screenshot ${f.nome}`}
                             fill
-                            className="object-cover object-center"
+                            className="object-contain"
                             sizes="(max-width: 768px) 100vw, 50vw"
                           />
                         ) : (
