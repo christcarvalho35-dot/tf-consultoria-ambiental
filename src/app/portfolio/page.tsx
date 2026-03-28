@@ -2,12 +2,17 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import CTA from "@/components/CTA";
-import { portfolioItems } from "@/data/portfolio";
-import { isPublished } from "@/lib/visibility";
+import { createClient } from "@/lib/supabase/server";
+import Image from "next/image";
 
-const published = portfolioItems.filter(isPublished);
+export default async function PortfolioPage() {
+  const supabase = await createClient();
+  const { data: items } = await supabase
+    .from("portfolio")
+    .select("id,titulo,categoria,localizacao,ano,descricao,imagem_url")
+    .eq("ativo", true)
+    .order("created_at", { ascending: false });
 
-export default function PortfolioPage() {
   return (
     <>
       <Navbar />
@@ -26,37 +31,54 @@ export default function PortfolioPage() {
         {/* Grid de projetos */}
         <section className="py-16 px-4">
           <div className="max-w-6xl mx-auto">
+            {(!items || items.length === 0) && (
+              <div className="text-center py-16 text-gray-400">
+                <p className="text-5xl mb-4">🌱</p>
+                <p>Projetos em breve.</p>
+              </div>
+            )}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {published.map((item) => (
+              {items && items.map((item) => (
                 <div
-                  key={item.slug}
+                  key={item.id}
                   className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
                 >
-                  {/* Placeholder para imagem futura */}
-                  <div className="bg-gradient-to-br from-[#263238] to-[#37474F] h-40 flex items-center justify-center">
-                    <span className="text-5xl">🌿</span>
-                  </div>
+                  {item.imagem_url ? (
+                    <div className="relative h-48 w-full">
+                      <Image
+                        src={item.imagem_url}
+                        alt={item.titulo}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="bg-gradient-to-br from-[#263238] to-[#37474F] h-48 flex items-center justify-center">
+                      <span className="text-5xl">🌿</span>
+                    </div>
+                  )}
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs bg-green-100 text-[#2E7D32] font-semibold px-2 py-1 rounded-full">
-                        {item.category}
-                      </span>
-                      <span className="text-xs text-gray-400">{item.year}</span>
+                      {item.categoria && (
+                        <span className="text-xs bg-green-100 text-[#2E7D32] font-semibold px-2 py-1 rounded-full">
+                          {item.categoria}
+                        </span>
+                      )}
+                      {item.ano && (
+                        <span className="text-xs text-gray-400">{item.ano}</span>
+                      )}
                     </div>
-                    <h3 className="font-bold text-[#263238] text-lg mb-2">{item.title}</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed mb-3">{item.description}</p>
-                    <p className="text-xs text-gray-400">📍 {item.location}</p>
+                    <h3 className="font-bold text-[#263238] text-lg mb-2">{item.titulo}</h3>
+                    {item.descricao && (
+                      <p className="text-gray-500 text-sm leading-relaxed mb-3">{item.descricao}</p>
+                    )}
+                    {item.localizacao && (
+                      <p className="text-xs text-gray-400">📍 {item.localizacao}</p>
+                    )}
                   </div>
                 </div>
               ))}
             </div>
-
-            {published.length === 0 && (
-              <div className="text-center py-16 text-gray-400">
-                <span className="text-5xl block mb-4">🌱</span>
-                <p>Projetos em breve.</p>
-              </div>
-            )}
           </div>
         </section>
 
