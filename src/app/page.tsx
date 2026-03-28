@@ -172,68 +172,61 @@ export default async function Home() {
                   Além da consultoria, desenvolvemos plataformas digitais para otimizar processos ambientais e florestais.
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {ferramentas.map((f) => (
-                  <div key={f.id} className="group bg-[#1a3a28] border border-white/10 rounded-3xl overflow-hidden hover:border-[#4CAF50]/40 hover:shadow-[0_0_50px_rgba(76,175,80,0.1)] transition-all duration-300 flex flex-col">
+              <div className="space-y-6">
+                {ferramentas.map((f, idx) => (
+                  <div key={f.id} className="group bg-[#1a3a28] border border-white/10 rounded-2xl overflow-hidden hover:border-[#4CAF50]/40 hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)] transition-all duration-300">
+                    <div className={`grid grid-cols-1 md:grid-cols-2`}>
 
-                    {/* Phone mockup area */}
-                    <div className="relative bg-gradient-to-b from-[#071510] to-[#0f2a1c] h-80 flex items-center justify-center overflow-hidden">
-                      {/* Glow de fundo */}
-                      <div className="absolute w-56 h-56 bg-[#4CAF50] rounded-full blur-[80px] opacity-10" />
-
-                      {/* Moldura do celular */}
-                      <div className="relative w-44 h-[320px] rounded-[38px] border-[7px] border-[#1f1f1f] bg-black shadow-[0_24px_64px_rgba(0,0,0,0.7)] ring-1 ring-white/5">
-                        {/* Notch */}
-                        <div className="absolute top-0 left-0 right-0 h-6 bg-black z-20 flex items-center justify-center rounded-t-[32px]">
-                          <div className="w-16 h-[14px] bg-[#0a0a0a] rounded-b-2xl" />
-                        </div>
-                        {/* Tela */}
-                        <div className="absolute inset-0 overflow-hidden rounded-[32px]">
-                          {f.screenshot_url ? (
-                            <Image
-                              src={f.screenshot_url}
-                              alt={`Screenshot ${f.nome}`}
-                              fill
-                              className="object-cover object-top pt-6"
-                              sizes="176px"
-                            />
-                          ) : (
-                            <div className="h-full bg-gradient-to-b from-[#0a1f14] to-[#1a3a28] flex flex-col items-center justify-center gap-3 pt-6">
-                              <svg className="w-8 h-8 text-[#4CAF50]/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                              </svg>
-                              <p className="text-white/20 text-[9px] text-center px-4">Screenshot em breve</p>
-                            </div>
-                          )}
-                        </div>
-                        {/* Home indicator */}
-                        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-white/20 rounded-full z-20" />
-                      </div>
-                    </div>
-
-                    {/* Card body */}
-                    <div className="p-6 flex flex-col gap-4 border-t border-white/5">
-                      <div className="flex items-center justify-between gap-3">
-                        {f.logo_url ? (
-                          <Image src={f.logo_url} alt={`Logo ${f.nome}`} width={120} height={36} className="object-contain h-8 w-auto" />
+                      {/* Imagem */}
+                      <div className={`relative h-72 md:h-auto md:min-h-[300px] bg-[#071510] ${idx % 2 === 1 ? "md:order-last" : ""}`}>
+                        {f.screenshot_url ? (
+                          <Image
+                            src={f.screenshot_url}
+                            alt={`Screenshot ${f.nome}`}
+                            fill
+                            className="object-cover object-center"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                          />
                         ) : (
-                          <h3 className="text-white font-bold text-lg">{f.nome}</h3>
+                          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 opacity-30">
+                            <svg className="w-10 h-10 text-[#4CAF50]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                            </svg>
+                            <p className="text-white/40 text-xs">Screenshot em breve</p>
+                          </div>
                         )}
-                        <span className="text-[10px] text-[#4CAF50] font-semibold uppercase tracking-widest bg-[#4CAF50]/10 px-2.5 py-1 rounded-full border border-[#4CAF50]/20 whitespace-nowrap">{f.badge}</span>
                       </div>
-                      {f.logo_url && <p className="text-white/60 text-sm font-medium -mt-2">{f.nome}</p>}
-                      <p className="text-gray-400 text-sm leading-relaxed">{f.descricao}</p>
-                      <a
-                        href={f.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 bg-[#4CAF50] hover:bg-[#2E7D32] text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition-colors w-fit"
-                      >
-                        Acessar plataforma
-                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                      </a>
+
+                      {/* Conteúdo */}
+                      <div className="p-8 flex flex-col justify-center gap-5">
+                        <span className="text-[10px] text-[#4CAF50] font-semibold uppercase tracking-widest bg-[#4CAF50]/10 px-3 py-1 rounded-full border border-[#4CAF50]/20 w-fit">
+                          {f.badge}
+                        </span>
+
+                        {f.logo_url ? (
+                          <div>
+                            <Image src={f.logo_url} alt={`Logo ${f.nome}`} width={150} height={48} className="object-contain h-10 w-auto mb-1" />
+                            <p className="text-white/50 text-xs mt-1">{f.nome}</p>
+                          </div>
+                        ) : (
+                          <h3 className="text-white font-bold text-2xl">{f.nome}</h3>
+                        )}
+
+                        <p className="text-gray-400 text-sm leading-relaxed">{f.descricao}</p>
+
+                        <a
+                          href={f.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 bg-[#4CAF50] hover:bg-[#2E7D32] text-white font-semibold px-5 py-3 rounded-xl text-sm transition-colors w-fit"
+                        >
+                          Acessar plataforma
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                        </a>
+                      </div>
+
                     </div>
                   </div>
                 ))}

@@ -47,49 +47,24 @@ export default async function TecnologiaPage() {
                   key={f.id}
                   className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${i % 2 === 1 ? "lg:grid-flow-dense" : ""}`}
                 >
-                  {/* Phone mockup */}
-                  <div className={`${i % 2 === 1 ? "lg:col-start-2" : ""} flex justify-center`}>
-                    <div className="relative bg-gradient-to-b from-[#071510] to-[#0f2a1c] rounded-3xl h-[480px] w-full max-w-sm flex items-center justify-center overflow-hidden border border-white/10 shadow-2xl">
-                      {/* Glow */}
-                      <div className="absolute w-64 h-64 bg-[#4CAF50] rounded-full blur-[100px] opacity-10" />
-                      {/* Celular */}
-                      <div className="relative w-52 h-[400px] rounded-[44px] border-[8px] border-[#1a1a1a] bg-black shadow-[0_32px_80px_rgba(0,0,0,0.8)] ring-1 ring-white/5">
-                        {/* Notch */}
-                        <div className="absolute top-0 left-0 right-0 h-7 bg-black z-20 flex items-center justify-center rounded-t-[37px]">
-                          <div className="w-18 h-[15px] bg-[#0a0a0a] rounded-b-2xl" />
-                        </div>
-                        {/* Tela */}
-                        <div className="absolute inset-0 overflow-hidden rounded-[37px]">
-                          {f.screenshot_url ? (
-                            <Image
-                              src={f.screenshot_url}
-                              alt={`Screenshot ${f.nome}`}
-                              fill
-                              className="object-cover object-top pt-7"
-                              sizes="208px"
-                            />
-                          ) : (
-                            <div className="h-full bg-gradient-to-b from-[#0a1f14] to-[#1a3a28] flex flex-col items-center justify-center gap-3 pt-7">
-                              <svg className="w-10 h-10 text-[#4CAF50]/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                              </svg>
-                              <p className="text-white/20 text-[10px] text-center px-4">Screenshot em breve</p>
-                            </div>
-                          )}
-                        </div>
-                        {/* Home indicator */}
-                        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-14 h-1 bg-white/20 rounded-full z-20" />
+                  {/* Imagem */}
+                  <div className={`${i % 2 === 1 ? "lg:col-start-2" : ""} relative rounded-2xl overflow-hidden min-h-[400px] bg-[#071510]`}>
+                    {f.screenshot_url ? (
+                      <Image
+                        src={f.screenshot_url}
+                        alt={`Screenshot ${f.nome}`}
+                        fill
+                        className="object-cover object-center"
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 opacity-30">
+                        <svg className="w-12 h-12 text-[#4CAF50]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                        </svg>
+                        <p className="text-white/40 text-sm">Screenshot em breve</p>
                       </div>
-                      {/* Link externo */}
-                      <a
-                        href={f.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="absolute bottom-5 right-5 text-[10px] text-[#4CAF50] border border-[#4CAF50]/30 px-3 py-1.5 rounded-full hover:bg-[#4CAF50]/10 transition-colors bg-black/40"
-                      >
-                        Abrir ↗
-                      </a>
-                    </div>
+                    )}
                   </div>
 
                   {/* Texto */}
