@@ -3,12 +3,32 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import CTA from "@/components/CTA";
 import ServiceCard from "@/components/ServiceCard";
-import { services, categories } from "@/data/services";
-import { isPublished } from "@/lib/visibility";
+import { createClient } from "@/lib/supabase/server";
 
-const published = services.filter(isPublished);
+const categorias = [
+  "Licenciamento e Regularização",
+  "Estudos Ambientais",
+  "Área Florestal",
+  "Geotecnologias",
+  "Recursos Hídricos",
+  "Gestão e Monitoramento",
+];
 
-export default function ServicosPage() {
+export default async function ServicosPage() {
+  const supabase = await createClient();
+  const { data: servicos } = await supabase
+    .from("servicos")
+    .select("id,titulo,slug,categoria,descricao_curta,imagem_url")
+    .eq("ativo", true)
+    .order("ordem");
+
+  const grouped = categorias
+    .map((cat) => ({
+      cat,
+      items: (servicos ?? []).filter((s) => s.categoria === cat),
+    }))
+    .filter((g) => g.items.length > 0);
+
   return (
     <>
       <Navbar />
@@ -27,21 +47,27 @@ export default function ServicosPage() {
         {/* Serviços por categoria */}
         <section className="py-16 px-4">
           <div className="max-w-6xl mx-auto space-y-16">
-            {categories.map((cat) => {
-              const catServices = published.filter((s) => s.category === cat);
-              if (catServices.length === 0) return null;
-              return (
-                <div key={cat}>
-                  <h2 className="text-2xl font-bold text-[#263238] mb-2">{cat}</h2>
-                  <div className="w-16 h-1 bg-[#4CAF50] rounded mb-8" />
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {catServices.map((service) => (
-                      <ServiceCard key={service.slug} service={service} />
-                    ))}
-                  </div>
+            {grouped.length === 0 && (
+              <p className="text-center text-gray-400 py-16">Nenhum serviço cadastrado ainda.</p>
+            )}
+            {grouped.map(({ cat, items }) => (
+              <div key={cat}>
+                <h2 className="text-2xl font-bold text-[#263238] mb-2">{cat}</h2>
+                <div className="w-16 h-1 bg-[#4CAF50] rounded mb-8" />
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {items.map((s) => (
+                    <ServiceCard
+                      key={s.id}
+                      titulo={s.titulo}
+                      slug={s.slug}
+                      categoria={s.categoria}
+                      descricao_curta={s.descricao_curta}
+                      imagem_url={s.imagem_url}
+                    />
+                  ))}
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </section>
 

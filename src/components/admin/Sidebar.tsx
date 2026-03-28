@@ -7,6 +7,7 @@ import Image from "next/image";
 
 const nav = [
   { href: "/admin", label: "Dashboard", icon: "📊" },
+  { href: "/admin/servicos", label: "Serviços", icon: "⚙️" },
   { href: "/admin/areas", label: "Áreas de Atuação", icon: "🌿" },
   { href: "/admin/depoimentos", label: "Depoimentos", icon: "💬" },
   { href: "/admin/portfolio", label: "Portfólio", icon: "📁" },

@@ -4,10 +4,8 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import CTA from "@/components/CTA";
 import ServiceCard from "@/components/ServiceCard";
 import Link from "next/link";
-import { services } from "@/data/services";
-import { isPublished } from "@/lib/visibility";
-
-const featuredServices = services.filter(isPublished).slice(0, 6);
+import Image from "next/image";
+import { createClient } from "@/lib/supabase/server";
 
 const diferenciais = [
   { icon: "🎓", title: "Equipe Especializada", desc: "Profissionais com formação e experiência em meio ambiente, florestal e geotecnologias." },
@@ -16,7 +14,16 @@ const diferenciais = [
   { icon: "🤝", title: "Atendimento Personalizado", desc: "Cada projeto é tratado de forma única, com soluções sob medida para cada cliente." },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const supabase = await createClient();
+
+  const [{ data: servicos }, { data: areas }, { data: depoimentos }, { data: clientes }] = await Promise.all([
+    supabase.from("servicos").select("id,titulo,slug,categoria,descricao_curta,imagem_url").eq("ativo", true).order("ordem").limit(6),
+    supabase.from("areas_atuacao").select("id,titulo,descricao,imagem_url").eq("ativo", true).order("ordem").limit(6),
+    supabase.from("depoimentos").select("id,nome,cargo,empresa,texto,foto_url").eq("ativo", true).order("ordem").limit(4),
+    supabase.from("clientes").select("id,nome,logo_url,site_url").eq("ativo", true).order("ordem"),
+  ]);
+
   return (
     <>
       <Navbar />
@@ -73,27 +80,71 @@ export default function Home() {
         </section>
 
         {/* Serviços em destaque */}
-        <section className="py-16 px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="flex items-end justify-between mb-10">
-              <div>
-                <h2 className="text-2xl md:text-3xl font-bold text-[#263238]">Nossos Serviços</h2>
-                <p className="text-gray-500 mt-1">Atuamos em todas as frentes da consultoria ambiental</p>
+        {servicos && servicos.length > 0 && (
+          <section className="py-16 px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="flex items-end justify-between mb-10">
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-[#263238]">Nossos Serviços</h2>
+                  <p className="text-gray-500 mt-1">Atuamos em todas as frentes da consultoria ambiental</p>
+                </div>
+                <Link href="/servicos" className="text-[#4CAF50] font-semibold text-sm hover:underline hidden sm:block">
+                  Ver todos →
+                </Link>
               </div>
-              <Link href="/servicos" className="text-[#4CAF50] font-semibold text-sm hover:underline hidden sm:block">
-                Ver todos →
-              </Link>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {servicos.map((s) => (
+                  <ServiceCard
+                    key={s.id}
+                    titulo={s.titulo}
+                    slug={s.slug}
+                    categoria={s.categoria}
+                    descricao_curta={s.descricao_curta}
+                    imagem_url={s.imagem_url}
+                  />
+                ))}
+              </div>
+              <div className="text-center mt-8 sm:hidden">
+                <Link href="/servicos" className="text-[#4CAF50] font-semibold">Ver todos os serviços →</Link>
+              </div>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {featuredServices.map((service) => (
-                <ServiceCard key={service.slug} service={service} />
-              ))}
+          </section>
+        )}
+
+        {/* Áreas de Atuação */}
+        {areas && areas.length > 0 && (
+          <section className="py-16 px-4 bg-gray-50">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-12">
+                <span className="text-[#4CAF50] font-semibold text-sm uppercase tracking-widest">O que fazemos</span>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#263238] mt-2">Áreas de Atuação</h2>
+                <p className="text-gray-500 mt-2 max-w-xl mx-auto">Nossa expertise cobre todas as etapas da regularização ambiental</p>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+                {areas.map((area) => (
+                  <div key={area.id} className="flex flex-col items-center text-center group">
+                    <div className="w-24 h-24 rounded-full overflow-hidden mb-3 border-4 border-white shadow-md group-hover:border-[#4CAF50] transition-colors">
+                      {area.imagem_url ? (
+                        <Image
+                          src={area.imagem_url}
+                          alt={area.titulo}
+                          width={96}
+                          height={96}
+                          className="object-cover w-full h-full"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-[#0D2418] flex items-center justify-center">
+                          <span className="text-white text-2xl font-bold">{area.titulo.charAt(0)}</span>
+                        </div>
+                      )}
+                    </div>
+                    <h3 className="font-semibold text-[#263238] text-sm leading-snug">{area.titulo}</h3>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="text-center mt-8 sm:hidden">
-              <Link href="/servicos" className="text-[#4CAF50] font-semibold">Ver todos os serviços →</Link>
-            </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Sobre resumo */}
         <section className="py-16 px-4 bg-[#263238] text-white">
@@ -133,6 +184,85 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Depoimentos */}
+        {depoimentos && depoimentos.length > 0 && (
+          <section className="py-16 px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-12">
+                <span className="text-[#4CAF50] font-semibold text-sm uppercase tracking-widest">Quem confia em nós</span>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#263238] mt-2">O que nossos clientes dizem</h2>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {depoimentos.map((d) => (
+                  <div key={d.id} className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm flex flex-col gap-4">
+                    <p className="text-gray-600 text-sm leading-relaxed flex-1">&ldquo;{d.texto}&rdquo;</p>
+                    <div className="flex items-center gap-3">
+                      {d.foto_url ? (
+                        <Image src={d.foto_url} alt={d.nome} width={40} height={40} className="rounded-full w-10 h-10 object-cover" />
+                      ) : (
+                        <div className="w-10 h-10 rounded-full bg-[#0D2418] flex items-center justify-center text-white font-bold text-sm">
+                          {d.nome.charAt(0)}
+                        </div>
+                      )}
+                      <div>
+                        <p className="font-semibold text-[#263238] text-sm">{d.nome}</p>
+                        <p className="text-gray-400 text-xs">{d.cargo}{d.empresa ? ` · ${d.empresa}` : ""}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Engajamento */}
+        <section className="py-16 px-4 bg-[#0D2418] text-white">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Chegou até aqui?</h2>
+            <p className="text-gray-300 text-lg mb-8">
+              Então você já sabe que precisa de suporte ambiental. Fale com a nossa equipe agora mesmo e
+              receba uma avaliação gratuita para o seu projeto.
+            </p>
+            <a
+              href="https://wa.me/5562993420326"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-[#4CAF50] hover:bg-[#2E7D32] text-white font-bold px-10 py-4 rounded-full transition-colors text-lg"
+            >
+              Falar com especialista agora
+            </a>
+          </div>
+        </section>
+
+        {/* Clientes / Logos */}
+        {clientes && clientes.length > 0 && (
+          <section className="py-14 px-4 bg-gray-50">
+            <div className="max-w-6xl mx-auto">
+              <p className="text-center text-gray-400 text-sm font-semibold uppercase tracking-widest mb-10">
+                Empresas que confiam na TF Ambiental
+              </p>
+              <div className="flex flex-wrap justify-center items-center gap-8">
+                {clientes.map((c) => (
+                  c.logo_url ? (
+                    c.site_url ? (
+                      <a key={c.id} href={c.site_url} target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 transition-opacity">
+                        <Image src={c.logo_url} alt={c.nome} width={120} height={50} className="object-contain h-10 w-auto" />
+                      </a>
+                    ) : (
+                      <div key={c.id} className="opacity-60 hover:opacity-100 transition-opacity">
+                        <Image src={c.logo_url} alt={c.nome} width={120} height={50} className="object-contain h-10 w-auto" />
+                      </div>
+                    )
+                  ) : (
+                    <span key={c.id} className="text-gray-400 text-sm font-medium">{c.nome}</span>
+                  )
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         <CTA />
       </main>
