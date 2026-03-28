@@ -79,38 +79,6 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* Serviços em destaque */}
-        {servicos && servicos.length > 0 && (
-          <section className="py-16 px-4">
-            <div className="max-w-6xl mx-auto">
-              <div className="flex items-end justify-between mb-10">
-                <div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-[#263238]">Nossos Serviços</h2>
-                  <p className="text-gray-500 mt-1">Atuamos em todas as frentes da consultoria ambiental</p>
-                </div>
-                <Link href="/servicos" className="text-[#4CAF50] font-semibold text-sm hover:underline hidden sm:block">
-                  Ver todos →
-                </Link>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {servicos.map((s) => (
-                  <ServiceCard
-                    key={s.id}
-                    titulo={s.titulo}
-                    slug={s.slug}
-                    categoria={s.categoria}
-                    descricao_curta={s.descricao_curta}
-                    imagem_url={s.imagem_url}
-                  />
-                ))}
-              </div>
-              <div className="text-center mt-8 sm:hidden">
-                <Link href="/servicos" className="text-[#4CAF50] font-semibold">Ver todos os serviços →</Link>
-              </div>
-            </div>
-          </section>
-        )}
-
         {/* Áreas de Atuação */}
         {areas && areas.length > 0 && (
           <section className="py-16 px-4 bg-gray-50">
@@ -146,6 +114,38 @@ export default async function Home() {
                     <h3 className="font-semibold text-[#263238] text-sm leading-snug">{area.titulo}</h3>
                   </div>
                 ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Serviços em destaque */}
+        {servicos && servicos.length > 0 && (
+          <section className="py-16 px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="flex items-end justify-between mb-10">
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-[#263238]">Nossos Serviços</h2>
+                  <p className="text-gray-500 mt-1">Atuamos em todas as frentes da consultoria ambiental</p>
+                </div>
+                <Link href="/servicos" className="text-[#4CAF50] font-semibold text-sm hover:underline hidden sm:block">
+                  Ver todos →
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {servicos.map((s) => (
+                  <ServiceCard
+                    key={s.id}
+                    titulo={s.titulo}
+                    slug={s.slug}
+                    categoria={s.categoria}
+                    descricao_curta={s.descricao_curta}
+                    imagem_url={s.imagem_url}
+                  />
+                ))}
+              </div>
+              <div className="text-center mt-8 sm:hidden">
+                <Link href="/servicos" className="text-[#4CAF50] font-semibold">Ver todos os serviços →</Link>
               </div>
             </div>
           </section>
