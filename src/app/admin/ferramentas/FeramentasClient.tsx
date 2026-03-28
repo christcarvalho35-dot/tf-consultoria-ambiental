@@ -64,14 +64,15 @@ export default function FeramentasClient({ initialData }: { initialData: Ferrame
         return;
       }
 
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from("ferramentas")
         .update(update)
         .eq("id", item.id)
         .select()
         .single();
 
-      setItems(items.map((i) => (i.id === item.id ? data : i)));
+      if (error) throw error;
+      if (data) setItems(items.map((i) => (i.id === item.id ? (data as Ferramenta) : i)));
       setEditId(null);
       setLogoFile(null);
       setScreenshotFile(null);
