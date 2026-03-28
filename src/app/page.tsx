@@ -8,10 +8,10 @@ import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 
 const diferenciais = [
-  { icon: "🎓", title: "Equipe Especializada", desc: "Profissionais com formação e experiência em meio ambiente, florestal e geotecnologias." },
-  { icon: "🇧🇷", title: "Atuação Nacional", desc: "Baseados em Aparecida de Goiânia/GO, com projetos realizados em GO, MG, SP, MT, TO, PA, RN e outros estados." },
-  { icon: "⚡", title: "Agilidade e Segurança", desc: "Processos conduzidos com rigor técnico e dentro dos prazos acordados." },
-  { icon: "🤝", title: "Atendimento Personalizado", desc: "Cada projeto é tratado de forma única, com soluções sob medida para cada cliente." },
+  { title: "Equipe Especializada", desc: "Profissionais com formação e experiência em meio ambiente, florestal e geotecnologias." },
+  { title: "Atuação Nacional", desc: "Baseados em Aparecida de Goiânia/GO, com projetos realizados em GO, MG, SP, MT, TO, PA, RN e outros estados." },
+  { title: "Agilidade e Segurança", desc: "Processos conduzidos com rigor técnico e dentro dos prazos acordados." },
+  { title: "Atendimento Personalizado", desc: "Cada projeto é tratado de forma única, com soluções sob medida para cada cliente." },
 ];
 
 export default async function Home() {
@@ -62,12 +62,12 @@ export default async function Home() {
         </section>
 
         {/* Diferenciais — faixa compacta */}
-        <section className="py-8 px-4 bg-white border-y border-gray-100">
+        <section className="py-6 px-4 bg-white border-y border-gray-100">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-gray-100">
               {diferenciais.map((item) => (
-                <div key={item.title} className="flex items-start gap-3 px-6 py-4">
-                  <span className="text-2xl mt-0.5 shrink-0">{item.icon}</span>
+                <div key={item.title} className="flex items-start gap-3 px-6 py-3">
+                  <div className="w-1 h-8 rounded-full bg-[#4CAF50] shrink-0 mt-0.5" />
                   <div>
                     <h3 className="font-bold text-[#263238] text-sm">{item.title}</h3>
                     <p className="text-gray-500 text-xs leading-relaxed mt-0.5">{item.desc}</p>
@@ -80,7 +80,7 @@ export default async function Home() {
 
         {/* Áreas de Atuação */}
         {areas && areas.length > 0 && (
-          <section className="py-20 px-4 bg-gray-50">
+          <section className="py-14 px-4 bg-gray-50">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
                 <span className="text-[#4CAF50] font-semibold text-sm uppercase tracking-widest">Segmentos atendidos</span>
