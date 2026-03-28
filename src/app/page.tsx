@@ -62,16 +62,14 @@ export default async function Home() {
         </section>
 
         {/* Diferenciais — faixa compacta */}
-        <section className="py-6 px-4 bg-white border-y border-gray-100">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-gray-100">
+        <section className="py-6 px-4 bg-white border-b border-gray-100 shadow-sm">
+          <div className="max-w-5xl mx-auto">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-gray-100">
               {diferenciais.map((item) => (
-                <div key={item.title} className="flex items-start gap-3 px-6 py-3">
-                  <div className="w-1 h-8 rounded-full bg-[#4CAF50] shrink-0 mt-0.5" />
-                  <div>
-                    <h3 className="font-bold text-[#263238] text-sm">{item.title}</h3>
-                    <p className="text-gray-500 text-xs leading-relaxed mt-0.5">{item.desc}</p>
-                  </div>
+                <div key={item.title} className="flex flex-col items-center text-center bg-white px-5 py-4 gap-1">
+                  <div className="w-8 h-0.5 rounded-full bg-[#4CAF50] mb-1" />
+                  <h3 className="font-bold text-[#263238] text-sm">{item.title}</h3>
+                  <p className="text-gray-400 text-xs leading-relaxed">{item.desc}</p>
                 </div>
               ))}
             </div>
