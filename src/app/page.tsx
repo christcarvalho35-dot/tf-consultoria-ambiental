@@ -62,21 +62,6 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* Diferenciais — faixa compacta */}
-        <section className="py-6 px-4 bg-white border-b border-gray-100 shadow-sm">
-          <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-gray-100">
-              {diferenciais.map((item) => (
-                <div key={item.title} className="flex flex-col items-center text-center bg-white px-5 py-4 gap-1">
-                  <div className="w-8 h-0.5 rounded-full bg-[#4CAF50] mb-1" />
-                  <h3 className="font-bold text-[#263238] text-sm">{item.title}</h3>
-                  <p className="text-gray-400 text-xs leading-relaxed">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Áreas de Atuação */}
         {areas && areas.length > 0 && (
           <section className="py-14 px-4 bg-gray-50">
@@ -158,6 +143,21 @@ export default async function Home() {
             </div>
           </section>
         )}
+
+        {/* Diferenciais — faixa compacta */}
+        <section className="py-6 px-4 bg-white border-b border-gray-100 shadow-sm">
+          <div className="max-w-5xl mx-auto">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-gray-100">
+              {diferenciais.map((item) => (
+                <div key={item.title} className="flex flex-col items-center text-center bg-white px-5 py-4 gap-1">
+                  <div className="w-8 h-0.5 rounded-full bg-[#4CAF50] mb-1" />
+                  <h3 className="font-bold text-[#263238] text-sm">{item.title}</h3>
+                  <p className="text-gray-400 text-xs leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* Tecnologia Aplicada */}
         {ferramentas && ferramentas.length > 0 && (
