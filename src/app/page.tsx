@@ -178,18 +178,17 @@ export default async function Home() {
                     <div className={`grid grid-cols-1 md:grid-cols-2`}>
 
                       {/* Imagem */}
-                      <div className={`bg-[#071510] ${idx % 2 === 1 ? "md:order-last" : ""} flex items-center justify-center`}>
+                      <div className={`relative h-72 md:h-auto md:min-h-[300px] bg-[#1a3a28] ${idx % 2 === 1 ? "md:order-last" : ""}`}>
                         {f.screenshot_url ? (
                           <Image
                             src={f.screenshot_url}
                             alt={`Screenshot ${f.nome}`}
-                            width={0}
-                            height={0}
+                            fill
+                            className="object-contain"
                             sizes="(max-width: 768px) 100vw, 50vw"
-                            className="w-full h-auto block"
                           />
                         ) : (
-                          <div className="h-64 flex flex-col items-center justify-center gap-3 opacity-30 w-full">
+                          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 opacity-30">
                             <svg className="w-10 h-10 text-[#4CAF50]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                             </svg>
