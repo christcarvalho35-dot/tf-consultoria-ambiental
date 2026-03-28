@@ -17,13 +17,16 @@ const diferenciais = [
 export default async function Home() {
   const supabase = await createClient();
 
-  const [{ data: servicos }, { data: areas }, { data: depoimentos }, { data: clientes }, { data: ferramentas }] = await Promise.all([
+  const [{ data: servicos }, { data: areas }, { data: depoimentos }, { data: clientes }, { data: ferramentas }, { data: secoes }] = await Promise.all([
     supabase.from("servicos").select("id,titulo,slug,categoria,descricao_curta,imagem_url").eq("ativo", true).order("ordem").limit(6),
     supabase.from("areas_atuacao").select("id,titulo,descricao,imagem_url").eq("ativo", true).order("ordem"),
     supabase.from("depoimentos").select("id,nome,cargo,empresa,texto,foto_url").eq("ativo", true).order("ordem").limit(4),
     supabase.from("clientes").select("id,nome,logo_url,site_url").eq("ativo", true).order("ordem"),
     supabase.from("ferramentas").select("id,nome,badge,descricao,url,logo_url,screenshot_url").eq("ativo", true).order("ordem"),
+    supabase.from("secoes_home").select("slug,ativo"),
   ]);
+
+  const secaoAtiva = (slug: string) => secoes?.find((s) => s.slug === slug)?.ativo !== false;
 
   return (
     <>
@@ -63,7 +66,7 @@ export default async function Home() {
         </section>
 
         {/* Áreas de Atuação */}
-        {areas && areas.length > 0 && (
+        {secaoAtiva("areas-atuacao") && areas && areas.length > 0 && (
           <section className="py-14 px-4 bg-gray-50">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
@@ -117,7 +120,7 @@ export default async function Home() {
         )}
 
         {/* Serviços em destaque */}
-        {servicos && servicos.length > 0 && (
+        {secaoAtiva("nossos-servicos") && servicos && servicos.length > 0 && (
           <section className="py-16 px-4">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
@@ -145,22 +148,24 @@ export default async function Home() {
         )}
 
         {/* Diferenciais — faixa compacta */}
-        <section className="py-6 px-4 bg-white border-b border-gray-100 shadow-sm">
-          <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-gray-100">
-              {diferenciais.map((item) => (
-                <div key={item.title} className="flex flex-col items-center text-center bg-white px-5 py-4 gap-1">
-                  <div className="w-8 h-0.5 rounded-full bg-[#4CAF50] mb-1" />
-                  <h3 className="font-bold text-[#263238] text-sm">{item.title}</h3>
-                  <p className="text-gray-400 text-xs leading-relaxed">{item.desc}</p>
-                </div>
-              ))}
+        {secaoAtiva("diferenciais") && (
+          <section className="py-6 px-4 bg-white border-b border-gray-100 shadow-sm">
+            <div className="max-w-5xl mx-auto">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-gray-100">
+                {diferenciais.map((item) => (
+                  <div key={item.title} className="flex flex-col items-center text-center bg-white px-5 py-4 gap-1">
+                    <div className="w-8 h-0.5 rounded-full bg-[#4CAF50] mb-1" />
+                    <h3 className="font-bold text-[#263238] text-sm">{item.title}</h3>
+                    <p className="text-gray-400 text-xs leading-relaxed">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Tecnologia Aplicada */}
-        {ferramentas && ferramentas.length > 0 && (
+        {secaoAtiva("tecnologia") && ferramentas && ferramentas.length > 0 && (
           <section className="py-20 px-4 bg-[#0D2418]">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
@@ -241,7 +246,7 @@ export default async function Home() {
         )}
 
         {/* Sobre resumo */}
-        <section className="py-16 px-4 bg-[#263238] text-white">
+        {secaoAtiva("sobre") && <section className="py-16 px-4 bg-[#263238] text-white">
           <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
               <span className="text-[#4CAF50] font-semibold text-sm uppercase tracking-widest">Quem somos</span>
@@ -277,10 +282,10 @@ export default async function Home() {
               ))}
             </div>
           </div>
-        </section>
+        </section>}
 
         {/* Depoimentos */}
-        {depoimentos && depoimentos.length > 0 && (
+        {secaoAtiva("depoimentos") && depoimentos && depoimentos.length > 0 && (
           <section className="py-16 px-4">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
@@ -331,7 +336,7 @@ export default async function Home() {
         </section>
 
         {/* Clientes / Logos */}
-        {clientes && clientes.length > 0 && (
+        {secaoAtiva("clientes") && clientes && clientes.length > 0 && (
           <section className="py-14 px-4 bg-gray-50">
             <div className="max-w-6xl mx-auto">
               <p className="text-center text-gray-400 text-sm font-semibold uppercase tracking-widest mb-10">

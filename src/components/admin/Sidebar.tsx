@@ -14,6 +14,7 @@ const nav = [
   { href: "/admin/blog", label: "Blog", icon: "✍️" },
   { href: "/admin/clientes", label: "Clientes / Logos", icon: "🏢" },
   { href: "/admin/ferramentas", label: "Tecnologia", icon: "💻" },
+  { href: "/admin/secoes", label: "Seções da Home", icon: "👁️" },
 ];
 
 export default function Sidebar() {
