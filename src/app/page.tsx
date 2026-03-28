@@ -61,18 +61,17 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* Diferenciais */}
-        <section className="py-16 px-4 bg-gray-50">
+        {/* Diferenciais — faixa compacta */}
+        <section className="py-8 px-4 bg-white border-y border-gray-100">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold text-center text-[#263238] mb-12">
-              Por que escolher a TF Ambiental?
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-gray-100">
               {diferenciais.map((item) => (
-                <div key={item.title} className="bg-white rounded-2xl p-6 shadow-sm text-center">
-                  <span className="text-4xl block mb-3">{item.icon}</span>
-                  <h3 className="font-bold text-[#263238] mb-2">{item.title}</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+                <div key={item.title} className="flex items-start gap-3 px-6 py-4">
+                  <span className="text-2xl mt-0.5 shrink-0">{item.icon}</span>
+                  <div>
+                    <h3 className="font-bold text-[#263238] text-sm">{item.title}</h3>
+                    <p className="text-gray-500 text-xs leading-relaxed mt-0.5">{item.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -109,16 +108,16 @@ export default async function Home() {
                       <div className="absolute inset-0 bg-gradient-to-br from-[#0D2418] to-[#263238]" />
                     )}
 
-                    {/* Gradient overlay — always visible, darkens on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/10 group-hover:from-black/80 group-hover:via-black/35 transition-all duration-300" />
+                    {/* Gradient overlay — suave por padrão, intensifica no hover */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent group-hover:from-black/75 group-hover:via-black/30 transition-all duration-300" />
 
-                    {/* Text — bottom left */}
+                    {/* Text — bottom left, suave por padrão, intensifica no hover */}
                     <div className="absolute bottom-0 left-0 p-5">
-                      <h3 className="text-white font-bold text-lg leading-tight mb-1 drop-shadow">
+                      <h3 className="text-white/70 group-hover:text-white font-bold text-lg leading-tight mb-1 drop-shadow transition-colors duration-300">
                         {area.titulo}
                       </h3>
                       {area.descricao && (
-                        <p className="text-white/75 text-sm leading-snug max-w-[220px]">
+                        <p className="text-white/40 group-hover:text-white/85 text-sm leading-snug max-w-[220px] transition-colors duration-300">
                           {area.descricao}
                         </p>
                       )}
