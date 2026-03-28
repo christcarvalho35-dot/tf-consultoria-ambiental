@@ -65,303 +65,181 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* Áreas de Atuação */}
-        {secaoAtiva("areas-atuacao") && areas && areas.length > 0 && (
-          <section className="py-14 px-4 bg-gray-50">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-12">
-                <span className="text-[#4CAF50] font-semibold text-sm uppercase tracking-widest">Segmentos atendidos</span>
-                <h2 className="text-2xl md:text-3xl font-bold text-[#263238] mt-2">Áreas de Atuação</h2>
-                <p className="text-gray-500 mt-2 max-w-2xl mx-auto">
-                  Atuamos nos principais setores que exigem regularização ambiental com responsabilidade técnica e agilidade.
-                </p>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                {areas.map((area) => (
-                  <div
-                    key={area.id}
-                    className="group relative h-56 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 cursor-default"
-                  >
-                    {/* Background image */}
-                    {area.imagem_url ? (
-                      <Image
-                        src={area.imagem_url}
-                        alt={`Consultoria ambiental para ${area.titulo.toLowerCase()}`}
-                        fill
-                        className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#0D2418] to-[#263238]" />
-                    )}
+        {/* Seções dinâmicas — ordem e visibilidade controladas pelo admin */}
+        {secoes?.map((s) => {
+          if (!s.ativo) return null;
 
-                    {/* Gradient overlay — suave por padrão, intensifica no hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent group-hover:from-black/75 group-hover:via-black/30 transition-all duration-300" />
-
-                    {/* Text — bottom left, suave por padrão, intensifica no hover */}
-                    <div className="absolute bottom-0 left-0 p-5">
-                      <h3 className="text-white/70 group-hover:text-white font-bold text-lg leading-tight mb-1 drop-shadow transition-colors duration-300">
-                        {area.titulo}
-                      </h3>
-                      {area.descricao && (
-                        <p className="text-white/40 group-hover:text-white/85 text-sm leading-snug max-w-[220px] transition-colors duration-300">
-                          {area.descricao}
-                        </p>
-                      )}
-                    </div>
-
-                    {/* Green accent bar on hover */}
-                    <div className="absolute bottom-0 left-0 w-full h-0.5 bg-[#4CAF50] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Serviços em destaque */}
-        {secaoAtiva("nossos-servicos") && servicos && servicos.length > 0 && (
-          <section className="py-16 px-4">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-12">
-                <span className="text-[#4CAF50] font-semibold text-sm uppercase tracking-widest">O que oferecemos</span>
-                <h2 className="text-2xl md:text-3xl font-bold text-[#263238] mt-2">Nossos Serviços</h2>
-                <p className="text-gray-500 mt-2 max-w-xl mx-auto">Atuamos em todas as frentes da consultoria ambiental</p>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {servicos.map((s) => (
-                  <ServiceCard
-                    key={s.id}
-                    titulo={s.titulo}
-                    slug={s.slug}
-                    categoria={s.categoria}
-                    descricao_curta={s.descricao_curta}
-                    imagem_url={s.imagem_url}
-                  />
-                ))}
-              </div>
-              <div className="text-center mt-10">
-                <Link href="/servicos" className="text-[#4CAF50] font-semibold hover:underline">Ver todos os serviços →</Link>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Diferenciais — faixa compacta */}
-        {secaoAtiva("diferenciais") && (
-          <section className="py-6 px-4 bg-white border-b border-gray-100 shadow-sm">
-            <div className="max-w-5xl mx-auto">
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-gray-100">
-                {diferenciais.map((item) => (
-                  <div key={item.title} className="flex flex-col items-center text-center bg-white px-5 py-4 gap-1">
-                    <div className="w-8 h-0.5 rounded-full bg-[#4CAF50] mb-1" />
-                    <h3 className="font-bold text-[#263238] text-sm">{item.title}</h3>
-                    <p className="text-gray-400 text-xs leading-relaxed">{item.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Tecnologia Aplicada */}
-        {secaoAtiva("tecnologia") && ferramentas && ferramentas.length > 0 && (
-          <section className="py-20 px-4 bg-[#0D2418]">
-            <div className="max-w-5xl mx-auto">
-              <div className="text-center mb-12">
-                <span className="inline-block bg-[#4CAF50]/20 text-[#4CAF50] text-xs font-bold px-3 py-1 rounded-full mb-4 uppercase tracking-widest border border-[#4CAF50]/30">
-                  Tecnologia própria
-                </span>
-                <h2 className="text-2xl md:text-3xl font-bold text-white mt-2">Ferramentas desenvolvidas pela TF</h2>
-                <p className="text-gray-400 mt-3 max-w-xl mx-auto text-sm">
-                  Além da consultoria, desenvolvemos plataformas digitais para otimizar processos ambientais e florestais.
-                </p>
-              </div>
-              <div className="space-y-6">
-                {ferramentas.map((f, idx) => (
-                  <div key={f.id} className="group bg-[#1a3a28] border border-white/10 rounded-xl overflow-hidden hover:border-[#4CAF50]/40 hover:shadow-[0_4px_24px_rgba(0,0,0,0.3)] transition-all duration-300">
-                    <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] md:h-[192px]">
-
-                      {/* Imagem */}
-                      <div className={`relative h-44 md:h-full ${idx % 2 === 1 ? "md:order-last" : ""}`}>
-                        {f.screenshot_url ? (
-                          <Image
-                            src={f.screenshot_url}
-                            alt={`Screenshot ${f.nome}`}
-                            fill
-                            className="object-cover object-center"
-                            sizes="(max-width: 768px) 100vw, 50vw"
-                          />
-                        ) : (
-                          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 opacity-30">
-                            <svg className="w-7 h-7 text-[#4CAF50]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                            </svg>
-                            <p className="text-white/40 text-[10px]">Screenshot em breve</p>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Conteúdo */}
-                      <div className="px-5 py-4 flex flex-col justify-center gap-2">
-                        <span className="text-[9px] text-[#4CAF50] font-semibold uppercase tracking-widest bg-[#4CAF50]/10 px-2 py-0.5 rounded-full border border-[#4CAF50]/20 w-fit">
-                          {f.badge}
-                        </span>
-
-                        {f.logo_url ? (
-                          <div>
-                            <Image src={f.logo_url} alt={`Logo ${f.nome}`} width={120} height={36} className="object-contain h-7 w-auto" />
-                            <p className="text-white/50 text-[10px] mt-0.5">{f.nome}</p>
-                          </div>
-                        ) : (
-                          <h3 className="text-white font-bold text-base">{f.nome}</h3>
-                        )}
-
-                        <p className="text-gray-400 text-xs leading-relaxed line-clamp-3">{f.descricao}</p>
-
-                        <a
-                          href={f.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 bg-[#4CAF50] hover:bg-[#2E7D32] text-white font-semibold px-4 py-2 rounded-lg text-xs transition-colors w-fit mt-1"
-                        >
-                          Acessar plataforma
-                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                          </svg>
-                        </a>
-                      </div>
-
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="text-center mt-10">
-                <Link href="/tecnologia" className="text-[#4CAF50] font-semibold text-sm hover:underline">
-                  Saiba mais sobre nossas ferramentas →
-                </Link>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Sobre resumo */}
-        {secaoAtiva("sobre") && <section className="py-16 px-4 bg-[#263238] text-white">
-          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div>
-              <span className="text-[#4CAF50] font-semibold text-sm uppercase tracking-widest">Quem somos</span>
-              <h2 className="text-3xl font-bold mt-2 mb-4">TF Consultoria Ambiental</h2>
-              <p className="text-gray-300 leading-relaxed mb-4">
-                A TF Ambiental é uma empresa de consultoria especializada em soluções ambientais para
-                empreendimentos rurais, urbanos e industriais em todo o Brasil. Com uma equipe multidisciplinar,
-                oferecemos serviços técnicos de alta qualidade, garantindo conformidade legal e
-                sustentabilidade para nossos clientes.
-              </p>
-              <p className="text-gray-300 leading-relaxed mb-6">
-                Baseados em Aparecida de Goiânia/GO, com atuação em todo o território nacional em licenciamento ambiental, inventário
-                florestal, georreferenciamento, estudos ambientais e muito mais.
-              </p>
-              <Link
-                href="/sobre"
-                className="inline-block bg-[#4CAF50] hover:bg-[#2E7D32] text-white font-bold px-6 py-3 rounded-full transition-colors"
-              >
-                Conhecer mais
-              </Link>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { num: "7+", label: "Categorias de serviços" },
-                { num: "100+", label: "Projetos realizados" },
-                { num: "7+", label: "Estados atendidos" },
-                { num: "100%", label: "Conformidade legal" },
-              ].map((stat) => (
-                <div key={stat.label} className="bg-[#37474F] rounded-2xl p-6 text-center">
-                  <span className="text-4xl font-bold text-[#4CAF50] block">{stat.num}</span>
-                  <span className="text-gray-300 text-sm mt-1 block">{stat.label}</span>
+          if (s.slug === "areas-atuacao" && areas && areas.length > 0) return (
+            <section key={s.slug} className="py-14 px-4 bg-gray-50">
+              <div className="max-w-6xl mx-auto">
+                <div className="text-center mb-12">
+                  <span className="text-[#4CAF50] font-semibold text-sm uppercase tracking-widest">Segmentos atendidos</span>
+                  <h2 className="text-2xl md:text-3xl font-bold text-[#263238] mt-2">Áreas de Atuação</h2>
+                  <p className="text-gray-500 mt-2 max-w-2xl mx-auto">Atuamos nos principais setores que exigem regularização ambiental com responsabilidade técnica e agilidade.</p>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>}
-
-        {/* Depoimentos */}
-        {secaoAtiva("depoimentos") && depoimentos && depoimentos.length > 0 && (
-          <section className="py-16 px-4">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-12">
-                <span className="text-[#4CAF50] font-semibold text-sm uppercase tracking-widest">Quem confia em nós</span>
-                <h2 className="text-2xl md:text-3xl font-bold text-[#263238] mt-2">O que nossos clientes dizem</h2>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {depoimentos.map((d) => (
-                  <div key={d.id} className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm flex flex-col gap-4">
-                    <p className="text-gray-600 text-sm leading-relaxed flex-1">&ldquo;{d.texto}&rdquo;</p>
-                    <div className="flex items-center gap-3">
-                      {d.foto_url ? (
-                        <Image src={d.foto_url} alt={d.nome} width={40} height={40} className="rounded-full w-10 h-10 object-cover" />
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {areas.map((area) => (
+                    <div key={area.id} className="group relative h-56 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 cursor-default">
+                      {area.imagem_url ? (
+                        <Image src={area.imagem_url} alt={`Consultoria ambiental para ${area.titulo.toLowerCase()}`} fill className="object-cover transition-transform duration-500 ease-out group-hover:scale-105" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
                       ) : (
-                        <div className="w-10 h-10 rounded-full bg-[#0D2418] flex items-center justify-center text-white font-bold text-sm">
-                          {d.nome.charAt(0)}
-                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#0D2418] to-[#263238]" />
                       )}
-                      <div>
-                        <p className="font-semibold text-[#263238] text-sm">{d.nome}</p>
-                        <p className="text-gray-400 text-xs">{d.cargo}{d.empresa ? ` · ${d.empresa}` : ""}</p>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent group-hover:from-black/75 group-hover:via-black/30 transition-all duration-300" />
+                      <div className="absolute bottom-0 left-0 p-5">
+                        <h3 className="text-white/70 group-hover:text-white font-bold text-lg leading-tight mb-1 drop-shadow transition-colors duration-300">{area.titulo}</h3>
+                        {area.descricao && <p className="text-white/40 group-hover:text-white/85 text-sm leading-snug max-w-[220px] transition-colors duration-300">{area.descricao}</p>}
+                      </div>
+                      <div className="absolute bottom-0 left-0 w-full h-0.5 bg-[#4CAF50] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          );
+
+          if (s.slug === "nossos-servicos" && servicos && servicos.length > 0) return (
+            <section key={s.slug} className="py-16 px-4">
+              <div className="max-w-6xl mx-auto">
+                <div className="text-center mb-12">
+                  <span className="text-[#4CAF50] font-semibold text-sm uppercase tracking-widest">O que oferecemos</span>
+                  <h2 className="text-2xl md:text-3xl font-bold text-[#263238] mt-2">Nossos Serviços</h2>
+                  <p className="text-gray-500 mt-2 max-w-xl mx-auto">Atuamos em todas as frentes da consultoria ambiental</p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {servicos.map((sv) => <ServiceCard key={sv.id} titulo={sv.titulo} slug={sv.slug} categoria={sv.categoria} descricao_curta={sv.descricao_curta} imagem_url={sv.imagem_url} />)}
+                </div>
+                <div className="text-center mt-10">
+                  <Link href="/servicos" className="text-[#4CAF50] font-semibold hover:underline">Ver todos os serviços →</Link>
+                </div>
+              </div>
+            </section>
+          );
+
+          if (s.slug === "diferenciais") return (
+            <section key={s.slug} className="py-6 px-4 bg-white border-b border-gray-100 shadow-sm">
+              <div className="max-w-5xl mx-auto">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-gray-100">
+                  {diferenciais.map((item) => (
+                    <div key={item.title} className="flex flex-col items-center text-center bg-white px-5 py-4 gap-1">
+                      <div className="w-8 h-0.5 rounded-full bg-[#4CAF50] mb-1" />
+                      <h3 className="font-bold text-[#263238] text-sm">{item.title}</h3>
+                      <p className="text-gray-400 text-xs leading-relaxed">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          );
+
+          if (s.slug === "tecnologia" && ferramentas && ferramentas.length > 0) return (
+            <section key={s.slug} className="py-20 px-4 bg-[#0D2418]">
+              <div className="max-w-5xl mx-auto">
+                <div className="text-center mb-12">
+                  <span className="inline-block bg-[#4CAF50]/20 text-[#4CAF50] text-xs font-bold px-3 py-1 rounded-full mb-4 uppercase tracking-widest border border-[#4CAF50]/30">Tecnologia própria</span>
+                  <h2 className="text-2xl md:text-3xl font-bold text-white mt-2">Ferramentas desenvolvidas pela TF</h2>
+                  <p className="text-gray-400 mt-3 max-w-xl mx-auto text-sm">Além da consultoria, desenvolvemos plataformas digitais para otimizar processos ambientais e florestais.</p>
+                </div>
+                <div className="space-y-6">
+                  {ferramentas.map((f, idx) => (
+                    <div key={f.id} className="group bg-[#1a3a28] border border-white/10 rounded-xl overflow-hidden hover:border-[#4CAF50]/40 hover:shadow-[0_4px_24px_rgba(0,0,0,0.3)] transition-all duration-300">
+                      <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] md:h-[192px]">
+                        <div className={`relative h-44 md:h-full ${idx % 2 === 1 ? "md:order-last" : ""}`}>
+                          {f.screenshot_url ? <Image src={f.screenshot_url} alt={`Screenshot ${f.nome}`} fill className="object-cover object-center" sizes="(max-width: 768px) 100vw, 50vw" /> : <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 opacity-30"><svg className="w-7 h-7 text-[#4CAF50]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg><p className="text-white/40 text-[10px]">Screenshot em breve</p></div>}
+                        </div>
+                        <div className="px-5 py-4 flex flex-col justify-center gap-2">
+                          <span className="text-[9px] text-[#4CAF50] font-semibold uppercase tracking-widest bg-[#4CAF50]/10 px-2 py-0.5 rounded-full border border-[#4CAF50]/20 w-fit">{f.badge}</span>
+                          {f.logo_url ? <div><Image src={f.logo_url} alt={`Logo ${f.nome}`} width={120} height={36} className="object-contain h-7 w-auto" /><p className="text-white/50 text-[10px] mt-0.5">{f.nome}</p></div> : <h3 className="text-white font-bold text-base">{f.nome}</h3>}
+                          <p className="text-gray-400 text-xs leading-relaxed line-clamp-3">{f.descricao}</p>
+                          <a href={f.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 bg-[#4CAF50] hover:bg-[#2E7D32] text-white font-semibold px-4 py-2 rounded-lg text-xs transition-colors w-fit mt-1">Acessar plataforma<svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg></a>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
+                <div className="text-center mt-10">
+                  <Link href="/tecnologia" className="text-[#4CAF50] font-semibold text-sm hover:underline">Saiba mais sobre nossas ferramentas →</Link>
+                </div>
               </div>
-            </div>
-          </section>
-        )}
+            </section>
+          );
 
-        {/* Engajamento */}
-        <section className="py-16 px-4 bg-[#0D2418] text-white">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Chegou até aqui?</h2>
-            <p className="text-gray-300 text-lg mb-8">
-              Então você já sabe que precisa de suporte ambiental. Fale com a nossa equipe agora mesmo e
-              receba uma avaliação gratuita para o seu projeto.
-            </p>
-            <a
-              href="https://wa.me/5562993420326"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-[#4CAF50] hover:bg-[#2E7D32] text-white font-bold px-10 py-4 rounded-full transition-colors text-lg"
-            >
-              Falar com especialista agora
-            </a>
-          </div>
-        </section>
+          if (s.slug === "sobre") return (
+            <section key={s.slug} className="py-16 px-4 bg-[#263238] text-white">
+              <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                  <span className="text-[#4CAF50] font-semibold text-sm uppercase tracking-widest">Quem somos</span>
+                  <h2 className="text-3xl font-bold mt-2 mb-4">TF Consultoria Ambiental</h2>
+                  <p className="text-gray-300 leading-relaxed mb-4">A TF Ambiental é uma empresa de consultoria especializada em soluções ambientais para empreendimentos rurais, urbanos e industriais em todo o Brasil.</p>
+                  <p className="text-gray-300 leading-relaxed mb-6">Baseados em Aparecida de Goiânia/GO, com atuação em todo o território nacional em licenciamento ambiental, inventário florestal, georreferenciamento, estudos ambientais e muito mais.</p>
+                  <Link href="/sobre" className="inline-block bg-[#4CAF50] hover:bg-[#2E7D32] text-white font-bold px-6 py-3 rounded-full transition-colors">Conhecer mais</Link>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  {[{ num: "7+", label: "Categorias de serviços" }, { num: "100+", label: "Projetos realizados" }, { num: "7+", label: "Estados atendidos" }, { num: "100%", label: "Conformidade legal" }].map((stat) => (
+                    <div key={stat.label} className="bg-[#37474F] rounded-2xl p-6 text-center">
+                      <span className="text-4xl font-bold text-[#4CAF50] block">{stat.num}</span>
+                      <span className="text-gray-300 text-sm mt-1 block">{stat.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          );
 
-        {/* Clientes / Logos */}
-        {secaoAtiva("clientes") && clientes && clientes.length > 0 && (
-          <section className="py-14 px-4 bg-gray-50">
-            <div className="max-w-6xl mx-auto">
-              <p className="text-center text-gray-400 text-sm font-semibold uppercase tracking-widest mb-10">
-                Empresas que confiam na TF Ambiental
-              </p>
-              <div className="flex flex-wrap justify-center items-center gap-8">
-                {clientes.map((c) => (
-                  c.logo_url ? (
-                    c.site_url ? (
-                      <a key={c.id} href={c.site_url} target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 transition-opacity">
-                        <Image src={c.logo_url} alt={c.nome} width={120} height={50} className="object-contain h-10 w-auto" />
-                      </a>
-                    ) : (
-                      <div key={c.id} className="opacity-60 hover:opacity-100 transition-opacity">
-                        <Image src={c.logo_url} alt={c.nome} width={120} height={50} className="object-contain h-10 w-auto" />
+          if (s.slug === "depoimentos" && depoimentos && depoimentos.length > 0) return (
+            <section key={s.slug} className="py-16 px-4">
+              <div className="max-w-6xl mx-auto">
+                <div className="text-center mb-12">
+                  <span className="text-[#4CAF50] font-semibold text-sm uppercase tracking-widest">Quem confia em nós</span>
+                  <h2 className="text-2xl md:text-3xl font-bold text-[#263238] mt-2">O que nossos clientes dizem</h2>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {depoimentos.map((d) => (
+                    <div key={d.id} className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm flex flex-col gap-4">
+                      <p className="text-gray-600 text-sm leading-relaxed flex-1">&ldquo;{d.texto}&rdquo;</p>
+                      <div className="flex items-center gap-3">
+                        {d.foto_url ? <Image src={d.foto_url} alt={d.nome} width={40} height={40} className="rounded-full w-10 h-10 object-cover" /> : <div className="w-10 h-10 rounded-full bg-[#0D2418] flex items-center justify-center text-white font-bold text-sm">{d.nome.charAt(0)}</div>}
+                        <div>
+                          <p className="font-semibold text-[#263238] text-sm">{d.nome}</p>
+                          <p className="text-gray-400 text-xs">{d.cargo}{d.empresa ? ` · ${d.empresa}` : ""}</p>
+                        </div>
                       </div>
-                    )
-                  ) : (
-                    <span key={c.id} className="text-gray-400 text-sm font-medium">{c.nome}</span>
-                  )
-                ))}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          </section>
-        )}
+            </section>
+          );
+
+          if (s.slug === "clientes" && clientes && clientes.length > 0) return (
+            <section key={s.slug} className="py-14 px-4 bg-gray-50">
+              <div className="max-w-6xl mx-auto">
+                <p className="text-center text-gray-400 text-sm font-semibold uppercase tracking-widest mb-10">
+                  Empresas que confiam na TF Ambiental
+                </p>
+                <div className="flex flex-wrap justify-center items-center gap-8">
+                  {clientes.map((c) => (
+                    c.logo_url ? (
+                      c.site_url ? (
+                        <a key={c.id} href={c.site_url} target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 transition-opacity">
+                          <Image src={c.logo_url} alt={c.nome} width={120} height={50} className="object-contain h-10 w-auto" />
+                        </a>
+                      ) : (
+                        <div key={c.id} className="opacity-60 hover:opacity-100 transition-opacity">
+                          <Image src={c.logo_url} alt={c.nome} width={120} height={50} className="object-contain h-10 w-auto" />
+                        </div>
+                      )
+                    ) : (
+                      <span key={c.id} className="text-gray-400 text-sm font-medium">{c.nome}</span>
+                    )
+                  ))}
+                </div>
+              </div>
+            </section>
+          );
+
+          return null;
+        })}
 
         <CTA />
       </main>
