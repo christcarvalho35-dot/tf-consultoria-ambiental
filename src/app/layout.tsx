@@ -8,6 +8,7 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
+  icons: { icon: "/images/logo/logo.png", apple: "/images/logo/logo.png" },
   title: "TF Ambiental | TF Consultoria Ambiental",
   description:
     "Licenciamento ambiental, inventário florestal, georreferenciamento e estudos ambientais em todo o Brasil.",
