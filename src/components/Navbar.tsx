@@ -26,8 +26,8 @@ export default function Navbar() {
           <Image
             src="/images/logo/logo.png"
             alt="TF Ambiental"
-            width={56}
-            height={56}
+            width={84}
+            height={84}
             className="object-contain"
           />
           <div>
