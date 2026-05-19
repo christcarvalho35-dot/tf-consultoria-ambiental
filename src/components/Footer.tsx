@@ -7,18 +7,14 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Marca */}
         <div>
-          <div className="flex items-center gap-3 mb-3">
+          <div className="flex items-center mb-3">
             <Image
-              src="/images/logo/logo.png"
+              src="/images/logo/logo-footer.png"
               alt="TF Ambiental"
-              width={44}
-              height={44}
-              className="object-contain"
+              width={1024}
+              height={265}
+              className="object-contain h-12 w-auto"
             />
-            <div>
-              <span className="font-bold text-white block">TF Ambiental</span>
-              <span className="text-xs text-gray-400">Consultoria Ambiental</span>
-            </div>
           </div>
           <p className="text-sm text-gray-400 leading-relaxed">
             Soluções ambientais completas para regularização, licenciamento e gestão sustentável.
