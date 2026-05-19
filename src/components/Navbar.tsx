@@ -22,18 +22,15 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
 
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" className="flex items-center">
           <Image
             src="/images/logo/logo.png"
             alt="TF Ambiental"
-            width={84}
-            height={84}
-            className="object-contain"
+            width={1024}
+            height={1024}
+            className="object-contain h-40 w-auto"
+            priority
           />
-          <div>
-            <span className="font-bold text-lg text-[#0D2418] leading-tight block">TF Ambiental</span>
-            <span className="text-xs text-gray-500 leading-tight block">Consultoria Ambiental</span>
-          </div>
         </Link>
 
         {/* Desktop Nav */}
