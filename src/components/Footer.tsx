@@ -13,7 +13,7 @@ export default function Footer() {
               alt="TF Ambiental"
               width={1024}
               height={265}
-              className="object-contain h-12 w-auto"
+              className="object-contain h-12 w-auto brightness-0 invert"
             />
           </div>
           <p className="text-sm text-gray-400 leading-relaxed">
