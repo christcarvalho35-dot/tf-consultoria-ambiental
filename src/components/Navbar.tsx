@@ -27,8 +27,8 @@ export default function Navbar() {
             src="/images/logo/logo.png"
             alt="TF Ambiental"
             width={1024}
-            height={1024}
-            className="object-contain h-40 w-auto"
+            height={290}
+            className="object-contain h-16 w-auto"
             priority
           />
         </Link>
